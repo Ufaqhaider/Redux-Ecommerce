@@ -1,12 +1,11 @@
 import React from "react";
 import { Button } from "@material-tailwind/react";
-import clothes from '../../assets/images/clothes.jpg';
+import clothes from "../../assets/images/clothes.jpg";
 import { filterProducts } from "../../features/slices/productSlice";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 const NavigateButtons = () => {
-    const dispatch = useDispatch()
   const buttons = [
     "Hoodies",
     "Dresses",
@@ -18,25 +17,29 @@ const NavigateButtons = () => {
     "Bags",
   ];
 
+  const dispatch = useDispatch();
+
   return (
     <div>
-      <div className="flex justify-center py-8">
-        {buttons.map((button, index) => (
-          <div key={index} className="mr-4">
-            <Link to={'/filteredProducts/' + button}>
-            <Button
-              color="grey"
-              variant="outlined"
-              size="lg"
-              ripple={true}
-              className="hover:bg-green-300 duration-300 ease-in-out"
-              onClick={()=>dispatch(filterProducts(button))}
-            >
-              {button}
-            </Button>
-            </Link>
-          </div>
-        ))}
+      <div className="flex flex-wrap items-center justify-center py-8">
+        {buttons.map((button, index) => {
+          return (
+            <div key={index} className="mr-4 mt-2">
+              <Link to={"/filteredProducts/" + button}>
+                <Button
+                  color="gray"
+                  size="lg"
+                  variant="outlined"
+                  ripple={true}
+                  className="text-black hover:bg-gray-300 duration-300 ease-in-out"
+                  onClick={() => dispatch(filterProducts(button))}
+                >
+                  {button}
+                </Button>
+              </Link>
+            </div>
+          );
+        })}
       </div>
       <div className="bg-black p-2 w-[55%] mx-auto rounded-md">
         <h3 className="text-red-600 text-center text-lg font-inter font-bold tracking-normal leading-none">
