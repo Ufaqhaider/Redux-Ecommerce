@@ -9,7 +9,6 @@ import { sliderData } from "../../assets/data/dummyData";
 
 const Slider = () => {
   const sliceIndex = useSelector((state) => state.Slider.value);
-  console.log("sliceind", sliceIndex);
   const dispatch = useDispatch();
 
   return (
@@ -40,7 +39,7 @@ const Slider = () => {
           return (
             <div className="mr-4" key={dot.id}>
               <div
-                className={ 
+                className={
                   index === sliceIndex
                     ? "bg-green-300 rounded-full p-4 cursor-pointer"
                     : "bg-white rounded-full p-4 cursor-pointer"

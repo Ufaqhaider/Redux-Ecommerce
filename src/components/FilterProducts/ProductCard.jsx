@@ -9,11 +9,10 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { singleProduct } from "../../features/slices/productSlice";
 
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const ProductCard = () => {
-
-    const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const filteredProducts = useSelector(
     (state) => state.products.filteredProducts
   );
@@ -21,8 +20,14 @@ const ProductCard = () => {
   return (
     <div className="grid grid-cols-4 justify-items-center py-8 gap-12">
       {filteredProducts.map((filteredProduct) => (
-        <Link to={`/filteredProducts/${filteredProduct.type}/${filteredProduct.id}`}>
-          <Card className="w-96 " key={filteredProduct.id} onClick={()=>dispatch(singleProduct(filteredProduct.id))}>
+        <Link
+          to={`/filteredProducts/${filteredProduct.type}/${filteredProduct.id}`}
+        >
+          <Card
+            className="w-96 "
+            key={filteredProduct.id}
+            onClick={() => dispatch(singleProduct(filteredProduct.id))}
+          >
             <CardHeader color="blue" className="relative h-96">
               <img
                 src={filteredProduct.img}
@@ -40,9 +45,9 @@ const ProductCard = () => {
               divider
               className="flex items-center justify-between py-3"
             >
-              <Typography variant="small">{filteredProduct.price}$</Typography>
+              <Typography variant="small">$ {filteredProduct.price}</Typography>
               <Typography variant="small" color="gray" className="flex gap-1">
-                {filteredProduct.colors?.map((color, index) => (
+                {filteredProduct.color?.map((color, index) => (
                   <i
                     className="fas fa-map-marker-alt fa-sm mt-[3px] rounded-full p-2 mr-4"
                     key={index}

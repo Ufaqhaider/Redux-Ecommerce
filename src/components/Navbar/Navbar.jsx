@@ -9,7 +9,7 @@ import { Tooltip } from "@material-tailwind/react";
 const Navbar = () => {
   const totalAmount = useSelector((state) => state.cart.totalAmount);
   const user = useSelector((state) => state.user.user);
-  const { name, image , authUser} = user;
+  const { name, image, authUser } = user;
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -44,7 +44,7 @@ const Navbar = () => {
               />
             </svg>
             <p className=" font-inter text-base font-medium tracking-normal leading-none text-center mr-2">
-              Whish List
+              Wish List
             </p>
           </div>
           <div
@@ -90,7 +90,8 @@ const Navbar = () => {
             )}
             <div>
               <p className="font-inter text-sm font-medium tracking-normal leading-none">
-                { authUser && `Hi ${name.charAt("0").toUpperCase() + name.slice(1)}`}
+                {authUser &&
+                  `Hi ${name.charAt("0").toUpperCase() + name.slice(1)}`}
               </p>
             </div>
             <span className="ml-5" onClick={() => dispatch(logout())}>
@@ -102,7 +103,7 @@ const Navbar = () => {
         </div>
       </div>
       <div className="bg-black p-4 w-full flex items-center justify-center mx-auto">
-        <p className="text-white font-inter text-base font-medium ">50& OFF</p>
+        <p className="text-white font-inter text-base font-medium ">50% OFF</p>
         <p className="text-white font-inter text-base font-medium mx-96">
           Free shipping and returns
         </p>

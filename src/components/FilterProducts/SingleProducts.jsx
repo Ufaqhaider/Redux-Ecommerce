@@ -13,12 +13,6 @@ const SingleProducts = () => {
 
   const dispatch = useDispatch();
 
-  const cart = useSelector((state) => state.cart.cart);
-  const am = useSelector((state) => state.cart.totalAmount);
-
-  console.log(cart);
-  console.log(am);
-
   return (
     <div>
       {product.map((item) => {

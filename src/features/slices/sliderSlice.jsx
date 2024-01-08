@@ -8,19 +8,15 @@ export const sliderSlice = createSlice({
     length: sliderData.length,
   },
   reducers: {
-    nextSlide(state,action) {
-        console.log('action',action)
-        console.log('state',state)
-        state.value= action.payload > state.length-1 ? 0 : action.payload;
-
+    nextSlide(state, action) {
+      state.value = action.payload > state.length - 1 ? 0 : action.payload;
     },
-    prevSlide(state,action) {
-        state.value= action.payload < 0 ? state.length-1 : action.payload 
-
+    prevSlide(state, action) {
+      state.value = action.payload < 0 ? state.length - 1 : action.payload;
     },
-    dotSlide(state,action) {
-        const slide = action.payload;
-        state.value = slide 
+    dotSlide(state, action) {
+      const slide = action.payload;
+      state.value = slide;
     },
   },
 });

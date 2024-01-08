@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardHeader,
@@ -6,24 +6,64 @@ import {
   CardFooter,
   Typography,
   Button,
-  Input
+  Input,
 } from "@material-tailwind/react";
 import { login } from "../../features/slices/authSlice";
 import { useDispatch } from "react-redux";
 
 const Login = () => {
-  const intitalState = {
+  const initialState = {
     name: "",
     password: "",
     image: "",
   };
-  const [values, setValues] = useState(intitalState);
+  const [values, setValues] = useState(initialState);
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
+
   const onChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
 
+  useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+      // Navigate only if there are no errors and the submit button is clicked
+      dispatch(login(values));
+    }
+    // eslint-disable-next-line
+  }, [formErrors, isSubmit]);
+  
   const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setFormErrors(validate(values));
+    setIsSubmit(true);
+
+    if (Object.keys(formErrors).length === 0) {
+      dispatch(login(values));
+    }
+  };
+
+  const validate = (values) => {
+    const errors = {};
+
+    if (!values.name.trim()) {
+      errors.name = "Username is required";
+    }
+
+    if (!values.password.trim()) {
+      errors.password = "Password is required";
+    } else if (values.password.length < 5) {
+      errors.password = "Password should be at least 5 characters";
+    } else if (values.password.length > 10) {
+      errors.password = "Password should not exceed 10 characters";
+    }
+
+    return errors;
+  };
 
   return (
     <div className="grid grid-cols-1 items-center justify-items-center h-screen">
@@ -46,6 +86,8 @@ const Login = () => {
             value={values.name}
             onChange={onChange}
           />
+          {isSubmit && <p className="errors text-red-600">{formErrors.name}</p>}
+
           <Input
             label="Password"
             size="lg"
@@ -54,6 +96,8 @@ const Login = () => {
             value={values.password}
             onChange={onChange}
           />
+          {isSubmit && <p className="errors text-red-600">{formErrors.password}</p>}
+
           <Input
             label="Image URL address"
             size="lg"
@@ -68,7 +112,7 @@ const Login = () => {
           <Button
             variant="gradient"
             fullWidth
-            onClick={() => dispatch(login(values))}
+            onClick={handleSubmit} // Corrected here
           >
             Sign In
           </Button>
